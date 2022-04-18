@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mid Monthly</title>
+<style>
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body{
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+font-size: .875rem;
+}
+form{
+width: 500px; 
+margin: 10px auto;
+}
+.fr{
+display: flex;
+flex-direction: row;
+justify-content:end;
+margin-bottom: 3px;
+margin-right: 15px;
+}
+.fr label{
+width: 80px;
+margin: 4px 4px;
+font-weight: 600;
+}
+.fr input, select {
+width: 380px;
+}
+.fr>button{
+background-color: #ccc;
+border-radius: .3rem;
+font-weight: 700;
+}
+legend{
+font-size: 1.1rem;
+font-weight: 700;
+border: 1px dashed gold;
+border-radius: .5rem;
+background-color: aqua;
+margin-bottom: 5px;
+}
+.wrap {
+width:65%;
+margin: 10px auto;
+}
+#dz {
+width: 90%;
+height: 300px;
+margin: 0 auto;
+display:flex;
+justify-content: center;
+align-items: center;
+font-size: 1.7rem;
+border: solid 3px #ccc;
+border-radius: 1rem;
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<div>
+<form id="frm" method="post" action="#">
+<fieldset>
+<legend>Fillup the form</legend>
+<div class="fr">
+<label for="name">Name</label>
+<input type="text" name="name" id="name" required/>
+</div>
+<div class="fr">
+<label for="email">E-mail</label>
+<input type="email" name="email" id="email" required/>
+</div>
+<div class="fr">
+<label for="salary">Ex. Salary</label>
+<input type="number" name="salary" id="salary" required/>
+</div>
+<div class="fr">
+<label>Experiance</label>
+<input type="range" name="Experiance" min="40" max="100" required/>
+</div>
+<div class="fr">
+<label for="select">Apply for</label>
+<select  id="select" name="post" >
+<option>Manager</option>
+<option>Executive</option>
+<option>Delivery man</option>
+<option value="" selected>Select one</option>
+</select>
+</div>
+<div class="fr">
+<button type="reset">Reset</button>&nbsp;
+<button type="submit" id="send">Send</button>
+</div>
+</form>
+</fieldset>
+</div>
+<div class="wrap">
+<div id="dz">
+Drop file here
+</div>
+<ul id="files">             
+</ul>
+</div>
+<div style="margin-top: 20px;">
+<div style="margin: 0 auto; width: 420px">
+<canvas id="canvas" width="420px" height="420px">
+No canvas support
+</canvas>
+</div>
+</div> 
+<script>
+$('#frm').submit( e=> {
+e.preventDefault();
+});
+$(()=>{
+$("#dz").on("dragenter", evt=>{
+evt.preventDefault();
+});
+$("#dz").on("dragover", evt=>{
+evt.preventDefault();
+});
+$("#dz").on("drop", evt=>{
+evt.preventDefault();
+var files = evt.originalEvent.dataTransfer.files;
+$("#files").empty();
+for(var i=0;i< files.length;i++)
+{
+$("#files")
+.append(`<li>${files[i].name}, type: ${files[i].type}, size: ${files[i].size}</li>`);			
+}
+});
+});
+var ctx = document.getElementById("canvas").getContext("2d");
+if (ctx) {
+ctx.fillStyle = "rgba(0, 0, 0, .3)";
+ctx.fillRect(0, 0, 420, 420);
+ctx.beginPath();
+ctx.strokeStyle = "blue";
+ctx.lineWidth = 5;
+ctx.moveTo(110, 110);
+ctx.arcTo(260, 260, 360, 160, 90);
+ctx.stroke();
+}
+</script>
+</body>
+</html>
